@@ -10,17 +10,15 @@ HOPSWORKS_API_KEY = os.getenv("HOPSWORKS_API_KEY")
 import yfinance as yf
 import pandas as pd
 import hopsworks
-import datetime
 
-# 1. Verbindung zu Hopsworks herstellen [cite: 12]
+# 1. Verbindung zu Hopsworks herstellen
 project = hopsworks.login(
         api_key_value=HOPSWORKS_API_KEY,
         project="mlops_project",
     )
 fs = project.get_feature_store()
 
-# 2. Rohdaten via API abrufen [cite: 37]
-# Beispiel: Apple Aktie (AAPL)
+# 2. Rohdaten via API abrufen
 ticker = "BTC-USD"
 data = yf.download(ticker, start="2023-01-01", end="2026-04-20")
 
@@ -30,16 +28,16 @@ if isinstance(data.columns, pd.MultiIndex):
 
 data.reset_index(inplace=True)
 
-# 3. Feature Engineering [cite: 28, 38]
+# 3. Feature Engineering
 
-# A) Aggregiertes Feature: 30-Tage Volatilität (Standardabweichung der Rendite) [cite: 31]
+# A) Aggregiertes Feature: 30-Tage Volatilität (Standardabweichung der Rendite)
 data['returns'] = data['Close'].pct_change()
 data['volatility_30d'] = data['returns'].rolling(window=30).std()
 
-# B) Aktuelles (RT) Feature: Intraday-Range (High-Low Differenz) [cite: 32]
+# B) Aktuelles (RT) Feature: Intraday-Range (High-Low Differenz)
 data['day_range_pct'] = (data['High'] - data['Low']) / data['Low']
 
-# C) Target: Wird die Volatilität morgen hoch sein (> 2%)? [cite: 10, 39]
+# C) Target: Wird die Volatilität morgen hoch sein (> 2%)?
 # Wir verschieben die Volatilität um -1, um das "Label" für den nächsten Tag zu erhalten
 data['target_volatility'] = (data['volatility_30d'].shift(-1) > 0.02).astype(int)
 
@@ -51,13 +49,13 @@ data.dropna(inplace=True)
 data['ticker'] = ticker
 data['event_time'] = data['Date'].apply(lambda x: int(x.timestamp() * 1000)) # In Millisekunden
 
-# Nur die relevanten Spalten behalten [cite: 39]
+# Nur die relevanten Spalten behalten
 df_features = data[['ticker', 'event_time', 'volatility_30d', 'day_range_pct', 'target_volatility']]
 
 # Sicherstellen, dass alle Spaltennamen lowercase sind (Hopsworks Anforderung)
 df_features.columns = [col.lower() for col in df_features.columns]
 
-# 5. Feature Group erstellen und Daten einfügen [cite: 40, 41]
+# 5. Feature Group erstellen und Daten einfügen
 volatility_fg = fs.get_or_create_feature_group(
     name="stock_volatility_fg",
     version=1,

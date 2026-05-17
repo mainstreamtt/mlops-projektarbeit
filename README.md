@@ -2,6 +2,13 @@
 
 Dieses Projekt implementiert eine FTI-Architektur (Feature, Training, Inference) zur Vorhersage, ob die Volatilität von Bitcoin (BTC-USD) am nächsten Handelstag hoch sein wird (> 2%).
 
+## Autoren
+
+Diese Arbeit wurde von folgenden Personen erledigt:
+
+* Silas Imboden
+* Thajakan Thirunavukkarasu
+
 ## Daten & Modell
 
 **Datenquelle:** [yfinance](https://github.com/ranaroussi/yfinance) – historische und aktuelle OHLCV-Daten für BTC-USD  

@@ -42,7 +42,7 @@ for df in [X_train, X_test]:
         df.drop(columns=['ticker'], inplace=True)
 
 # 5. Modell trainieren
-# Modell-Performance ist laut Aufgabe nicht wichtig [cite: 6, 7]
+# Modell-Performance ist laut Aufgabe nicht wichtig
 model = RandomForestClassifier(n_estimators=100)
 model.fit(X_train, y_train.values.ravel())
 
@@ -58,7 +58,7 @@ if not os.path.exists(model_dir):
 # Lokal sichern 
 joblib.dump(model, model_dir + "/model.pkl")
 
-# In Hopsworks Model Registry hochladen [cite: 4, 47]
+# In Hopsworks Model Registry hochladen
 mr = project.get_model_registry()
 stock_model = mr.python.create_model(
     name="volatility_model",
