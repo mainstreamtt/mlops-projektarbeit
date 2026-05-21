@@ -76,9 +76,12 @@ pip install -r requirements.txt
 
 ```
 HOPSWORKS_API_KEY=<dein_hopsworks_api_key>
+HOPSWORKS_PROJECT=mlops_project
 ```
 
 Den API-Key erhält man unter: Hopsworks → Account Settings → API Keys
+
+> **Hinweis:** `HOPSWORKS_PROJECT` ist optional und gibt den Namen des Hopsworks-Projekts an. Wird die Variable nicht gesetzt, wird `mlops_project` als Standardwert verwendet.
 
 ### Pipelines ausführen
 
