@@ -20,7 +20,7 @@ def get_resources():
     if _model is None:
         project = hopsworks.login(
             api_key_value=os.getenv("HOPSWORKS_API_KEY"),
-            project="mlops_project"
+            project=os.getenv("HOPSWORKS_PROJECT", "mlops_project")
         )
         fs = project.get_feature_store()
         mr = project.get_model_registry()

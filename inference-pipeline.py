@@ -10,7 +10,7 @@ load_dotenv()
 # 1. Verbindung zu Hopsworks herstellen
 project = hopsworks.login(
     api_key_value=os.getenv("HOPSWORKS_API_KEY"),
-    project="mlops_project"
+    project=os.getenv("HOPSWORKS_PROJECT", "mlops_project")
 )
 fs = project.get_feature_store()
 mr = project.get_model_registry()
