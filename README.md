@@ -67,7 +67,13 @@ Hopsworks Feature Store
 ### Installation
 
 ```bash
-pip install -r requirements.txt
+# Virtuelle Umgebung erstellen und aktivieren
+uv venv --python 3.12
+source .venv/bin/activate        # Linux/macOS
+# .venv\Scripts\activate         # Windows
+
+# Abhängigkeiten installieren
+uv pip install -r requirements.txt
 ```
 
 ### Konfiguration
