@@ -1,4 +1,4 @@
-hopsworks
+hopsworks[python]==4.7.*
 yfinance
 pandas
 scikit-learn

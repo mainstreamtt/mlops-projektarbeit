@@ -24,13 +24,13 @@ try:
     query = volatility_fg.select(["volatility_30d", "day_range_pct", "target_volatility"])
     feature_view = fs.get_or_create_feature_view(
         name="stock_volatility_view",
-        version=3,
+        version=1,
         labels=["target_volatility"], # Hier definieren wir das Target
         query=query
     )
 except Exception as e:
     print(f"Fehler beim Erstellen der Feature View: {e}")
-    feature_view = fs.get_feature_view(name="stock_volatility_view", version=3)
+    feature_view = fs.get_feature_view(name="stock_volatility_view", version=1)
 
 # 4. Training Dataset erstellen
 # Splittet die Daten intern in Training und Test

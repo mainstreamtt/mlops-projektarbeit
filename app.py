@@ -27,7 +27,7 @@ def get_resources():
         model_meta = mr.get_model("volatility_model", version=1)
         model_path = model_meta.download()
         _model = joblib.load(os.path.join(model_path, "model.pkl"))
-        _feature_view = fs.get_feature_view(name="stock_volatility_view", version=3)
+        _feature_view = fs.get_feature_view(name="stock_volatility_view", version=1)
     return _model, _feature_view
 
 
